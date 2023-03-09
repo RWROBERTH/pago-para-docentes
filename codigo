@@ -1,7 +1,7 @@
 Algoritmo pago_para_docentes
 	definir nombrecompleto, carnet, cargos, mespago Como Caracter
 	definir sueldo, haberbasico, sueldo_afps, sueldo_aportesolidario , sueldoliquido, bonoantiguedad, sueldo_horasnocturnas, rc_iva, multas, otros_descuentos Como Real
-	Definir afps, descuentoafps, aportesolidario Como Real
+	Definir afps, descuentoafps,facturas, aportesolidario Como Real
 	Definir porcentaje01, porcentaje02, porcentaje03 Como Real
 	Definir monto1, monto2, monto3 Como Real
 	Definir horastrabajadas, sueldo_hora, horasextra, sueldo_horaextra, horas_nocturnas, productividad,  smn, totalingresos como numerico
@@ -9,7 +9,6 @@ Algoritmo pago_para_docentes
 	//conclusiones
 	smn=2250
 	afps=0.1271
-	rc_iva=(2*smn)*0.13
 	//datos
 	escribir "Escribir Nombre y Apellido completo"
 	leer nombrecompleto
@@ -30,6 +29,8 @@ Algoritmo pago_para_docentes
 	haberbasico=sueldo
 	Escribir "Escribe tus años de antiguedad"
 	leer anoantiguedad
+	Escribir "Escribe el monto de facturas para el RC-IVA"
+	leer facturas
 	//conversor de datos
 	nombrecompleto=Mayusculas(nombrecompleto)
 	cargo=Mayusculas(cargo)
@@ -40,6 +41,10 @@ Algoritmo pago_para_docentes
 	sueldo_horasnocturnas=((sueldo_hora*0.25)+sueldo_hora)*horas_nocturnas
 	//afps
 	descuentoafps=sueldo*afps
+	//RC-IVA
+	rc_iva=(sueldo-facturas)*0.13
+	//bono productividad
+	productividad=sueldo*0.01
 	//descuento aporte solidario
 	si 13000<sueldo y sueldo<25000 Entonces
 		monto1=sueldo-13000
@@ -106,7 +111,7 @@ Algoritmo pago_para_docentes
 	Escribir "Escribe el mes de pago: ", mespago
 	Escribir "Años de antiguedad: ", anoantiguedad, " años"
 	Escribir "Porcentaje por hora: ", sueldo_hora
-	Escribir ""
+	Escribir "Facturas solicitadas: ", facturas
 	Escribir "Presione una tecla"
 	Esperar Tecla
 	Borrar Pantalla
